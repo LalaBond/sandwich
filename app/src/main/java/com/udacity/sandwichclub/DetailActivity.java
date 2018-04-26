@@ -1,9 +1,11 @@
 package com.udacity.sandwichclub;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -14,6 +16,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+    private Sandwich sandwich;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
 
         String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
         String json = sandwiches[position];
-        Sandwich sandwich = JsonUtils.parseSandwichJson(json);
+        sandwich = JsonUtils.parseSandwichJson(json);
         if (sandwich == null) {
             // Sandwich data unavailable
             closeOnError();
@@ -57,6 +60,34 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
+
+        TextView mainNameTextView = findViewById(R.id.origin_tv);
+        TextView alsoKnowAsTextView = findViewById(R.id.also_known_tv);
+        TextView placeOfOriginTextView = findViewById(R.id.origin_tv);
+        TextView descriptionTextView = findViewById(R.id.description_tv);
+//        ImageView sandwichImageView = findViewById(R.id.image_iv);
+        TextView ingredientsTextView = findViewById(R.id.ingredients_tv);
+
+        mainNameTextView.setText(sandwich.getMainName());
+        placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
+        descriptionTextView.setText(sandwich.getDescription());
+
+        String alsoKnownString = "", ingredientsString = "";
+        if(sandwich.getAlsoKnownAs() != null) {
+            for (String item : sandwich.getAlsoKnownAs()) {
+
+                alsoKnownString += item + ", ";
+            }
+        }
+
+        if(sandwich.getIngredients() != null) {
+            for (String ingredient : sandwich.getIngredients()) {
+                ingredientsString += ingredient + ", ";
+            }
+        }
+
+        alsoKnowAsTextView.setText(alsoKnownString);
+        ingredientsTextView.setText(ingredientsString);
 
     }
 }
