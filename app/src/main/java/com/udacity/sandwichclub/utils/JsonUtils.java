@@ -1,56 +1,54 @@
 package com.udacity.sandwichclub.utils;
 
+import android.media.Image;
+
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtils {
 
     public static Sandwich parseSandwichJson(String json) {
         Sandwich sandwich = new Sandwich();
-        List<String> ingredientsList = null, alsoKnownAsList = null;
+        List<String> ingredientsList = new ArrayList<>();
+        List<String> alsoKnownAsList = new ArrayList<>();
 
         try {
 
-
             JSONObject sandwichObject = new JSONObject(json);
-            JSONArray array = sandwichObject.getJSONArray("name");
+            JSONObject nameObject = sandwichObject.getJSONObject("name");
+            String placeOfOrigin = sandwichObject.getString("placeOfOrigin");
+            String description = sandwichObject.getString("description");
+            JSONArray ingredientsArr = sandwichObject.getJSONArray("ingredients");
+            String image = sandwichObject.getString("image");
 
+            JSONArray alsoKnowAsArr = nameObject.getJSONArray("alsoKnownAs");
+            sandwich.setMainName(nameObject.getString("mainName"));
+            sandwich.setPlaceOfOrigin(placeOfOrigin);
+            sandwich.setDescription(description);
+            sandwich.setImage(image);
 
-            JSONObject placeOfOrigin = sandwichObject.getJSONObject("placeOfOrigin");
-            JSONObject description = sandwichObject.getJSONObject("description");
-            JSONArray ingredients = sandwichObject.getJSONArray("ingredients");
-            JSONObject image = sandwichObject.getJSONObject("image");
+            for (int i = 0; i < alsoKnowAsArr.length(); i++){
 
-            //sandwich.setMainName(sandwichObject.getString("mainName"));
+                String alsoKnownAsObject = alsoKnowAsArr.getString(i);
+                alsoKnownAsList.add(alsoKnownAsObject);
+            }
 
-            //JSONArray alsoKnownAsArray = sandwichObject.getJSONArray("alsoKnownAs");
+            for (int i = 0; i < ingredientsArr.length(); i++){
 
-//            for (int x = 0; alsoKnownAsArray.length() < x; x++) {
-//                alsoKnownAsList.add(alsoKnownAsArray.getString(x));
-//            }
-//
-//            sandwich.setAlsoKnownAs(alsoKnownAsList);
-//            sandwich.setDescription(sandwichObject.getString("description"));
-//            sandwich.setPlaceOfOrigin(sandwichObject.getString("placeOfOrigin"));
-//            sandwich.setImage(sandwichObject.getString("image"));
-//
-//            JSONArray ingredientsArray = sandwichObject.getJSONArray("ingredients");
-//
-//            for (int x = 0; ingredientsArray.length() < x; x++) {
-//                ingredientsList.add(ingredientsArray.getString(x));
-//            }
-//
-//            sandwich.setIngredients(ingredientsList);
+                String ingredientObject = ingredientsArr.getString(i);
+                ingredientsList.add(ingredientObject);
+            }
+            sandwich.setIngredients(ingredientsList);
 
         } catch (Exception e) {
 
             System.out.println("LALA ERROR: " + e);
         }
-
 
         return sandwich;
     }

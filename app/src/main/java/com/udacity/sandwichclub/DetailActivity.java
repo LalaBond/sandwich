@@ -65,7 +65,6 @@ public class DetailActivity extends AppCompatActivity {
         TextView alsoKnowAsTextView = findViewById(R.id.also_known_tv);
         TextView placeOfOriginTextView = findViewById(R.id.origin_tv);
         TextView descriptionTextView = findViewById(R.id.description_tv);
-//        ImageView sandwichImageView = findViewById(R.id.image_iv);
         TextView ingredientsTextView = findViewById(R.id.ingredients_tv);
 
         mainNameTextView.setText(sandwich.getMainName());
