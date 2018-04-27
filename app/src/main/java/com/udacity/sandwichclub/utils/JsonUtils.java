@@ -14,28 +14,37 @@ public class JsonUtils {
         List<String> ingredientsList = null, alsoKnownAsList = null;
 
         try {
+
+
             JSONObject sandwichObject = new JSONObject(json);
+            JSONArray array = sandwichObject.getJSONArray("name");
 
-            sandwich.setMainName(sandwichObject.getString("mainName"));
 
-            JSONArray alsoKnownAsArray = sandwichObject.getJSONArray("alsoKnownAs");
+            JSONObject placeOfOrigin = sandwichObject.getJSONObject("placeOfOrigin");
+            JSONObject description = sandwichObject.getJSONObject("description");
+            JSONArray ingredients = sandwichObject.getJSONArray("ingredients");
+            JSONObject image = sandwichObject.getJSONObject("image");
 
-            for (int x = 0; alsoKnownAsArray.length() < x; x++) {
-                alsoKnownAsList.add(alsoKnownAsArray.getString(x));
-            }
+            //sandwich.setMainName(sandwichObject.getString("mainName"));
 
-            sandwich.setAlsoKnownAs(alsoKnownAsList);
-            sandwich.setDescription(sandwichObject.getString("description"));
-            sandwich.setPlaceOfOrigin(sandwichObject.getString("placeOfOrigin"));
-            sandwich.setImage(sandwichObject.getString("image"));
+            //JSONArray alsoKnownAsArray = sandwichObject.getJSONArray("alsoKnownAs");
 
-            JSONArray ingredientsArray = sandwichObject.getJSONArray("ingredients");
-
-            for (int x = 0; ingredientsArray.length() < x; x++) {
-                ingredientsList.add(ingredientsArray.getString(x));
-            }
-
-            sandwich.setIngredients(ingredientsList);
+//            for (int x = 0; alsoKnownAsArray.length() < x; x++) {
+//                alsoKnownAsList.add(alsoKnownAsArray.getString(x));
+//            }
+//
+//            sandwich.setAlsoKnownAs(alsoKnownAsList);
+//            sandwich.setDescription(sandwichObject.getString("description"));
+//            sandwich.setPlaceOfOrigin(sandwichObject.getString("placeOfOrigin"));
+//            sandwich.setImage(sandwichObject.getString("image"));
+//
+//            JSONArray ingredientsArray = sandwichObject.getJSONArray("ingredients");
+//
+//            for (int x = 0; ingredientsArray.length() < x; x++) {
+//                ingredientsList.add(ingredientsArray.getString(x));
+//            }
+//
+//            sandwich.setIngredients(ingredientsList);
 
         } catch (Exception e) {
 
