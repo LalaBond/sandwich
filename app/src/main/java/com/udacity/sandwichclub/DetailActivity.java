@@ -77,16 +77,17 @@ public class DetailActivity extends AppCompatActivity {
 
                 alsoKnownString += item + ", ";
             }
+            alsoKnownString = alsoKnownString.substring(0, alsoKnownString.length() - 2);
         }
 
         if(sandwich.getIngredients() != null) {
             for (String ingredient : sandwich.getIngredients()) {
                 ingredientsString += ingredient + ", ";
             }
+            ingredientsString = ingredientsString.substring(0, ingredientsString.length() - 2);
         }
 
         alsoKnowAsTextView.setText(alsoKnownString);
         ingredientsTextView.setText(ingredientsString);
-
     }
 }
